@@ -1,7 +1,8 @@
 #include "sort.h"
 
 
-/** swap - swap two integers using aritmetic operations
+/**
+ * swap - swap two integers using aritmetic operations
  * without using an intermediate/temporary variable
  *
  * @array: array to be printed after swap
@@ -24,7 +25,8 @@ void swap(int array[], size_t size, int *a, int *b)
 
 
 
-/** lomuto_partition - partitions the array
+/**
+ * lomuto_partition - partitions the array
  *
  * @array: array to be patitioned
  * @size: size of the array
@@ -48,7 +50,8 @@ size_t lomuto_partition(int array[], size_t size, ssize_t li, ssize_t hi)
 }
 
 
-/** inner_sort: recursively sort the left and right handsides of a pivot
+/**
+ * inner_sort: recursively sort the left and right handsides of a pivot
  *
  * @array: array being sorted
  * @size: length of the array
@@ -67,8 +70,13 @@ void inner_sort(int array[], size_t size, ssize_t li, ssize_t hi)
 		inner_sort(array, size, li, pivot - 1);
 		inner_sort(array, size, pivot + 1, hi);
 	}
-		
 }
+
+/**
+ * quick_sort - sort an arry using the quick sort algorithm
+ * @array: array to be sorted
+ * @size: size of the array
+ */
 
 
 void quick_sort(int *array, size_t size)
