@@ -51,7 +51,7 @@ size_t lomuto_partition(int array[], size_t size, ssize_t li, ssize_t hi)
 
 
 /**
- * inner_sort: recursively sort the left and right handsides of a pivot
+ * inner_sort - recursively sort the left and right handsides of a pivot
  *
  * @array: array being sorted
  * @size: length of the array
