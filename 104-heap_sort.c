@@ -1,69 +1,60 @@
 #include "sort.h"
 
 /**
- * swap - Swaps two elements in an array
- * @a: Pointer to the first element
- * @b: Pointer to the second element
+ * heapify - turns an array in a heap tree
+ * @array: array to turn into heap
+ * @s: size of the subtree
+ * @root: index of the subtree in the heap
+ * @size: size of the whole array
  */
-void swap(int *a, int *b)
+void heapify(int *array, size_t s, size_t root, size_t size)
 {
-	int temp = *a;
-	*a = *b;
-	*b = temp;
-}
+	size_t max, left, right;
+	int tmp;
 
-/**
- * sift_down - Performs the sift-down operation on a heap
- * @array: Array representing the heap
- * @start: Start index of the subtree to sift down
- * @end: End index of the subtree to sift down
- * @size: Size of the array
- */
-void sift_down(int *array, size_t start, size_t end, size_t size)
-{
-	size_t root = start;
-	while (root * 2 + 1 <= end)
+	max = root;
+	left = (root * 2) + 1;
+	right = (root * 2) + 2;
+
+	if (left < s && array[left] > array[max])
+		max = left;
+
+	if (right < s && array[right] > array[max])
+		max = right;
+
+	if (max != root)
 	{
-		size_t child = 2 * root + 1;
-		size_t swap_idx = root;
-
-		if (array[swap_idx] < array[child])
-			swap_idx = child;
-
-		if (child + 1 <= end && array[swap_idx] < array[child + 1])
-			swap_idx = child + 1;
-
-		if (swap_idx == root)
-			return;
-
-		swap(&array[root], &array[swap_idx]);
+		tmp = array[root];
+		array[root] = array[max];
+		array[max] = tmp;
 		print_array(array, size);
-		root = swap_idx;
+		heapify(array, s, max, size);
 	}
 }
-
 /**
- * heap_sort - Sorts an array of integers in ascending order using Heap sort
- * @array: Array to be sorted
- * @size: Size of the array
+ * heap_sort - sorts an array following the Heap sort algorithm
+ * @array: array of ints to sort
+ * @size: size of the array to sort
  */
 void heap_sort(int *array, size_t size)
 {
-	if (array == NULL || size < 2)
+	int i;
+	int tmp;
+
+	if (size < 2)
 		return;
 
-	/* Build the heap (rearrange the array) */
-	for (int i = size / 2 - 1; i >= 0; i--)
-		sift_down(array, i, size - 1, size);
+	for (i = size / 2 - 1; i >= 0; i--)
+		heapify(array, size, (size_t)i, size);
 
-	/* One by one extract elements from the heap */
-	for (int i = size - 1; i > 0; i--)
+	for (i = size - 1; i >= 0; i--)
 	{
-		/* Move the current root (maximum element) to the end */
-		swap(&array[0], &array[i]);
-		print_array(array, size);
-
-		/* Call sift_down on the reduced heap */
-		sift_down(array, 0, i - 1, size);
+		tmp = array[i];
+		array[i] = array[0];
+		array[0] = tmp;
+		if (i != 0)
+			print_array(array, size);
+		heapify(array, (size_t)i, 0, size);
 	}
 }
+
