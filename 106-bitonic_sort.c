@@ -1,6 +1,5 @@
 #include "sort.h"
 
-
 /**
  * bitonic_merge - sorts and merges a sequence in ascending or descending order
  * @array: array to sort
@@ -20,6 +19,14 @@ void bitonic_merge(int *array, int l, int r, int direction)
 			{
 				tmp = array[i + mid];
 				array[i + mid] = array[i];
+				array[i] = tmp;
+			}
+		}
+		bitonic_merge(array, l, step, direction);
+		bitonic_merge(array, step + 1, r, direction);
+	}
+
+}
 
 /**
  * bitonic_recursion - recursive function for bitonic sort
@@ -53,14 +60,7 @@ void bitonic_recursion(int *array, int l, int r, int direction, size_t size)
 		print_array(array + l, r - l + 1);
 	}
 }
-				array[i] = tmp;
-			}
-		}
-		bitonic_merge(array, l, step, direction);
-		bitonic_merge(array, step + 1, r, direction);
-	}
 
-}
 /**
  * bitonic_sort - sorts an array following the Bitonic sort algorithm
  * @array: array of ints to sort
