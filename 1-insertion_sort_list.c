@@ -22,7 +22,6 @@ void swap(listint_t *a, listint_t *b)
 
 /**
  * insertion_sort_list - sorting a list
- * 
  * @list: double pointer to the head of the list
  */
 
@@ -39,16 +38,16 @@ void insertion_sort_list(listint_t **list)
 	{
 		temp = current;
 
-		while(temp && temp->prev)
+		while (temp && temp->prev)
 		{
 			if (temp->prev->n > temp->n)
 			{
 				swap(temp->prev, temp);
-				
-				if(!temp->prev)
+
+				if (!temp->prev)
 					*list = temp;
 
-				print_list((const listint_t*)*list);
+				print_list((const listint_t*) *list);
 			}
 			else
 				temp = temp->prev;
