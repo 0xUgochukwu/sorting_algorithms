@@ -1,44 +1,6 @@
 #include "sort.h"
 
 /**
- * merge_sort - sorts an array with the Merge Sort algorithm
- * @array: array of ints to sort
- * @size: size of the array
- */
-void merge_sort(int *array, size_t size)
-{
-	int *arr;
-
-	if (!array || size < 2)
-		return;
-
-	arr = malloc(sizeof(int) * size);
-
-	merge_recursion(arr, array, 0, size);
-	free(arr);
-}
-
-/**
- * merge_recursion - recursive function that merge sorts an array
- * @arr: copy array
- * @array: array to merge sort
- * @left: index of the left element
- * @right: index of the right element
- */
-void merge_recursion(int *arr, int *array, size_t left, size_t right)
-{
-	size_t middle;
-
-	if (right - left > 1)
-	{
-		middle = (right - left) / 2 + left;
-		merge_recursion(arr, array, left, middle);
-		merge_recursion(arr, array, middle, right);
-		merge_subarray(arr, array, left, middle, right);
-	}
-}
-
-/**
  * merge_subarray - merges subarrays
  * @arr: copy array
  * @array: array to merge
@@ -76,3 +38,43 @@ void merge_subarray(int *arr, int *array, size_t left,
 	printf("[Done]: ");
 	print_array(array + left, right - left);
 }
+
+
+/**
+ * merge_recursion - recursive function that merge sorts an array
+ * @arr: copy array
+ * @array: array to merge sort
+ * @left: index of the left element
+ * @right: index of the right element
+ */
+void merge_recursion(int *arr, int *array, size_t left, size_t right)
+{
+	size_t middle;
+
+	if (right - left > 1)
+	{
+		middle = (right - left) / 2 + left;
+		merge_recursion(arr, array, left, middle);
+		merge_recursion(arr, array, middle, right);
+		merge_subarray(arr, array, left, middle, right);
+	}
+}
+
+/**
+ * merge_sort - sorts an array with the Merge Sort algorithm
+ * @array: array of ints to sort
+ * @size: size of the array
+ */
+void merge_sort(int *array, size_t size)
+{
+	int *arr;
+
+	if (!array || size < 2)
+		return;
+
+	arr = malloc(sizeof(int) * size);
+
+	merge_recursion(arr, array, 0, size);
+	free(arr);
+}
+
